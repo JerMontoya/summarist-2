@@ -1,0 +1,147 @@
+/* --- Overlay background --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* --- Modal box --- */
+.modal-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  color: black;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #032b41;
+  margin-bottom: 24px;
+}
+/* --- Close button --- */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: black;
+  transition: opacity 0.2s;
+}
+
+.modal-close:hover {
+  opacity: 0.5;
+}
+
+/* --- Form styles --- */
+.modal-form input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  margin-bottom: 16px;
+  border: 2px solid #bac8ce;
+  border-radius: 4px;
+  background-color: white;
+  color: #394547;
+}
+
+.modal-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2bd97c;
+  border: none;
+  border-radius: 6px;
+  color: black;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-form button:hover {
+  background-color: #20ba68;
+}
+
+.switch {
+  margin-top: 32px;
+  font-size: 16px;
+  font-weight: 300;
+  color: #116be9;
+  background-color: #f1f6f4;
+  width: 100%;
+  height: 40px;
+  border-radius: 0 0 4px 4px;
+}
+
+.guest-login{
+    position: relative;
+    display: flex;
+    background-color: #3a579d;
+    color: #fff;
+    justify-content: center;
+     width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.fauser{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 28px;
+    position: absolute;
+    left: 6px;
+    top: 6px;
+}
+
+.auth-separator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 0;
+    width: 100%;
+}
+
+.auth-separator:after, 
+.auth-separator:before {
+    content: "";
+    flex: 1;
+    display: block;
+    height: 1px;
+    background: #bac8ce;
+}
+
+.auth-separator-text{
+    margin: 0 24px;
+    font-size: 14px;
+    color: #394547;
+    font-weight: 500;
+}
+/* --- Animation --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
