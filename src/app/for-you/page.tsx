@@ -5,7 +5,7 @@ import { Book } from "@/app/types";
 import Wheel from "@/components/wheel/Wheel";
 
 export default async function ForYou() {
-  const [selectedRes, recommendedRes] = await Promise.all([
+  const [selectedRes, recommendedRes, suggestedRes] = await Promise.all([
     fetch(
       "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected",
       {
@@ -16,10 +16,14 @@ export default async function ForYou() {
       "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended",
       { next: { revalidate: 60 } }
     ),
+    fetch(
+      "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=suggested",
+      { next: { revalidate: 60 } }
+    ),
   ]);
 
-  const [selectedBooks, recommendedBooks]: [Book[], Book[]] = await Promise.all(
-    [selectedRes.json(), recommendedRes.json()]
+  const [selectedBooks, recommendedBooks, suggestedBooks]: [Book[], Book[], Book[]] = await Promise.all(
+    [selectedRes.json(), recommendedRes.json(), suggestedRes.json()]
   );
   return (
     <div>
@@ -67,6 +71,11 @@ export default async function ForYou() {
               <div>
                 <Wheel books={recommendedBooks} />
               </div>
+              <div className="for-you__title">Suggested Books</div>
+              <div className="for-you__sub--title">
+                Browse these books
+              </div>
+              <Wheel books={suggestedBooks} />
             </div>
           </div>
         </div>
