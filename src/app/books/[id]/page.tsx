@@ -1,79 +1,113 @@
 import MainBars from "@/components/main-bars/MainBars";
 import "./book.css";
 import { Book } from "@/app/types";
+import {
+  FaBookmark,
+  FaBookOpen,
+  FaClock,
+  FaLightbulb,
+  FaMicrophone,
+  FaStar,
+} from "react-icons/fa";
+import SomeButton from "@/components/Button";
 
-
-export default async function BookPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default async function BookPage({ params }) {
+  const { id } = await params;
 
   const res = await fetch(
     `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`,
+    {
+      next: { revalidate: 60 },
+    }
   );
 
-//   const book: Book | null = (await res.text()) ? JSON.parse(await res.text()) : null;
-
   const book: Book = await res.json();
-  
+
+  // 5bxl50cz4bt
+
   return (
     <div>
       <MainBars />
       <div className="row">
         <div className="container">
           <div className="inner__wrapper">
-            <div className="inner-book--img-wrapper">
-              <figure className="book__image--wrapper">
-                <img className="book__image" src="" alt="" />
-              </figure>
-            </div>
             <div className="inner__book">
-              <div className="inner-book__title">{book.title}</div>
-              <div className="inner-book__author"></div>
-              <div className="inner-book__sub-title"></div>
+              <div className="premium">
+                <div className="inner-book__title">{book.title}</div>
+                {book.subscriptionRequired && (
+                  <div className="inner-book__title">(Premium)</div>
+                )}
+              </div>
+              <div className="inner-book__author">{book.author}</div>
+              <div className="inner-book__sub-title">{book.subTitle}</div>
               <div className="inner-book__wrapper">
                 <div className="inner-book__description--wrapper">
                   <div className="inner-book__description">
-                    <div className="inner-book__icon"></div>
-                    <div className="inner-book__overall--rating"></div>
-                    <div className="inner-book__total--rating"></div>
+                    <div className="inner-book__icon">
+                      <FaStar />
+                    </div>
+                    <div className="inner-book__overall--rating">
+                      {book.averageRating}
+                    </div>
+                    <div className="inner-book__total--rating">
+                      ({book.totalRating} Ratings)
+                    </div>
                   </div>
                   <div className="inner-book__description">
-                    <div className="inner-book__icon"></div>
+                    <div className="inner-book__icon">
+                      <FaClock />
+                    </div>
                     <div className="inner-book__duration"></div>
                   </div>
                   <div className="inner-book__description">
-                    <div className="inner-book__icon"></div>
+                    <div className="inner-book__icon">
+                      <FaMicrophone />
+                    </div>
                     <div className="inner-book__type">Audio & Text</div>
                   </div>
                   <div className="inner-book__description">
-                    <div className="inner-book__icon"></div>
-                    <div className="inner-book__key--ideas"></div>
+                    <div className="inner-book__icon">
+                      <FaLightbulb />
+                    </div>
+                    <div className="inner-book__key--ideas">
+                      {book.keyIdeas}
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="inner-book__read--btn-wrapper">
-                <button className="inner-book__read--btn">
-                    <div className="inner-book__read--icon"></div>
-                    <div className="inner-book__read--text">Read</div>
-                </button>
-                <button className="inner-book__read--btn">
-                    <div className="inner-book__read--icon"></div>
-                    <div className="inner-book__read--text">Listen</div>
-                </button>
+                <SomeButton icon={<FaBookOpen />} />
+                <SomeButton text="Listen" icon={<FaMicrophone />} />
               </div>
               <div className="inner-book__bookmark">
-                <div className="inner-book__bookmark--icon">
-
+                <div className="inner-book__bookmark--icon"></div>
+                <div className="inner-book__bookmark--text">
+                  <FaBookmark /> Add to My Library
                 </div>
-                <div className="inner-book__bookmark--text">Saved in My Library</div>
               </div>
-              <div className="inner-book__secondary--title">What's it about?</div>
-              <div className="inner-book__tags--wrapper"> 
-                <div className="inner-book__tag"></div>
-                <div className="inner-book__tag"></div>
+              <div className="inner-book__secondary--title">
+                What's it about?
               </div>
-              <div className="inner-book__book--description"></div>
-              <h2 className="inner-book__secondary--title"></h2>
-              <div className="inner-book__author--description"></div>
+              <div className="inner-book__tags--wrapper">
+                <div className="inner-book__tag">{book.tags[0]}</div>
+                <div className="inner-book__tag">{book.tags[1]}</div>
+              </div>
+              <div className="inner-book__book--description">
+                {book.bookDescription}
+              </div>
+              <h2 className="inner-book__secondary--title">About the Author</h2>
+              <div className="inner-book__author--description">
+                {book.authorDescription}
+              </div>
+            </div>
+            <div className="inner-book--img-wrapper">
+              <figure className="book__image--wrapper">
+                <img
+                  className="book__image"
+                  src={book.imageLink}
+                  alt="Book Cover"
+                />
+              </figure>
             </div>
           </div>
         </div>

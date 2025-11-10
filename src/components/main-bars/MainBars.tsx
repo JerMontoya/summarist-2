@@ -50,7 +50,7 @@ export default function MainBars() {
       />
       <aside
         className={`sidebar ${open ? "sidebar--opened" : ""}`}
-        aria-hidden={!open && window.innerWidth < 768}
+        aria-hidden={!open && typeof window !== "undefined" && window.innerWidth < 768}
       >
         <div className="sidebar sidebar--opened">
           <div className="sidebar__logo">

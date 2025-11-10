@@ -15,10 +15,17 @@ import { FaUser } from "react-icons/fa";
 import { useRouter } from "next/navigation"
 import Link from "next/link";
 
-export default function LoginModal() {
+interface LoginModalProps {
+  onClose: () => void;
+}
+
+export default function LoginModal({ onClose }: LoginModalProps) {
     const router = useRouter();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const handleClose = () => {
+    onClose();
+  };
   const isOpen = useSelector((state: RootState) => state.modal.isOpen);
 
   const [mode, setMode] = useState<"signIn" | "signUp">("signIn");
@@ -73,7 +80,7 @@ export default function LoginModal() {
       setEmail("");
       setPassword("");
       setLoading(false);
-      dispatch(closeModal());
+      onClose()
     } catch (err: any) {
       setLoading(false);
       const code = err?.code;
@@ -96,7 +103,7 @@ export default function LoginModal() {
   return (
     <div className="modal-overlay">
       <div className="modal-container">
-        <button onClick={() => dispatch(closeModal())} className="modal-close">
+        <button onClick={() => onClose()} className="modal-close">
           ✕
         </button>
         {/* SIGN IN TOGGLE */}
@@ -141,7 +148,7 @@ export default function LoginModal() {
           <>
             <h2 className="modal-title">Log in to Summarist</h2>
 
-            <Link href="/for-you" className="guest-login" onClick={() => dispatch(closeModal())}>
+            <Link href="/for-you" className="guest-login" onClick={() => onClose()}>
               <FaUser className="fauser" />
               <div>Login as a Guest</div>
             </Link>
