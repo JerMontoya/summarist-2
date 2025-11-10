@@ -3,7 +3,7 @@ import { AiFillFileText, AiFillBulb, AiFillAudio } from "react-icons/ai";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiCrown } from "react-icons/bi";
 import { RiLeafLine } from "react-icons/ri";
-import HomeNavbar from "@/components/HomeNavbar";
+import HomeNavbar from "@/components/home-navbar/HomeNavbar";
 import { useDispatch } from "react-redux";
 import { openModal } from "@/lib/store/modalSlice";
 

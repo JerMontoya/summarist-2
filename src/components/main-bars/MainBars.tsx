@@ -8,6 +8,8 @@ import {
   FaRightToBracket,
 } from "react-icons/fa6";
 import { useState } from "react";
+import LogoutButton from "../LogoutButton";
+
 
 export default function MainBars() {
   const [open, setOpen] = useState(false);
@@ -113,7 +115,7 @@ export default function MainBars() {
                 <div className="sidebar__icon--wrapper">
                   <FaRightToBracket className="img" />
                 </div>
-                <div className="sidebar__link--text">Login</div>
+                <LogoutButton />
               </div>
             </div>
           </div>

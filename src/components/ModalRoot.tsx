@@ -3,7 +3,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/lib/store/store";
 import { closeModal } from "@/lib/store/modalSlice";
-import LoginModal from "@/components/LoginModal"; // adjust this path if needed
+import LoginModal from "@/components/login-modal/LoginModal"; // adjust this path if needed
 
 export default function ModalRoot() {
   const dispatch = useDispatch();

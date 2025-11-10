@@ -4,7 +4,6 @@ import "./LoginModal.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/lib/store/store";
-import { closeModal } from "@/lib/store/modalSlice";
 import { auth, db } from "@/lib/firebase";
 import {
   signInWithEmailAndPassword,
@@ -22,7 +21,6 @@ interface LoginModalProps {
 export default function LoginModal({ onClose }: LoginModalProps) {
     const router = useRouter();
 
-  // const dispatch = useDispatch();
   const handleClose = () => {
     onClose();
   };
