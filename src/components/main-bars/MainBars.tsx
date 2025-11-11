@@ -73,7 +73,7 @@ export default function MainBars() {
                 <div className="sidebar__icon--wrapper">
                   <FaBookmark className="img" />
                 </div>
-                <div className="sidebar__link--text">Library</div>
+                <div className="sidebar__link--text">My Library</div>
               </a>
 
               <div className="sidebar__link--wrapper sidebar__link--not-allowed">

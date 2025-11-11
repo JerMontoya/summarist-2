@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
-  uid?: string | null;
+  uid: string | null;
   isLoading: boolean;
-  subscription: "basic" | "premium" | null; 
+  subscription: "basic" | "premium" 
 }
 
 const initialState: AuthState = {
   uid: null,
   isLoading: true,
-  subscription: null,
+  subscription: "basic",
 };
 
 const authSlice = createSlice({
@@ -18,10 +18,15 @@ const authSlice = createSlice({
     reducers: {
     setUser: (
       state,
-      action: PayloadAction<{ uid: string; subscription?: "basic" | "premium" }>
+      action: PayloadAction<{ uid: string; subscription?: "basic" | "premium" } | null>
     ) => {
-      state.uid = action.payload.uid;
-      state.subscription = action.payload.subscription || null;
+      if (action.payload) {
+        state.uid = action.payload.uid;
+        state.subscription = action.payload.subscription || "basic";
+      } else {
+        state.uid = null;
+        state.subscription = "basic";
+      }
       state.isLoading = false;
     },
 
@@ -35,7 +40,7 @@ const authSlice = createSlice({
 
     logout: (state) => {
       state.uid = null;
-      state.subscription = null;
+      state.subscription = "basic";
       state.isLoading = false;
     },
   },
@@ -43,16 +48,4 @@ const authSlice = createSlice({
 
 export const { setUser, setLoading, setSubscription, logout } = authSlice.actions;
 export default authSlice.reducer;
-//   reducers: {
-//     setUser: (state, action: PayloadAction<string | null>) => {
-//       state.uid = action.payload;
-//       state.isLoading = false;
-//     },
-//     setLoading: (state, action: PayloadAction<boolean>) => {
-//       state.isLoading = action.payload;
-//     },
-//   },
-// });
 
-// export const { setUser, setLoading } = authSlice.actions;
-// export default authSlice.reducer;

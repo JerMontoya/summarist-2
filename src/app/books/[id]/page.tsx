@@ -22,6 +22,7 @@ export default async function BookPage({ params }) {
   );
 
   const book: Book = await res.json();
+  const isPremium = Boolean(book?.subscriptionRequired);
 
   // 5bxl50cz4bt
 
@@ -76,8 +77,17 @@ export default async function BookPage({ params }) {
                 </div>
               </div>
               <div className="inner-book__read--btn-wrapper">
-                <SomeButton icon={<FaBookOpen />} />
-                <SomeButton text="Listen" icon={<FaMicrophone />} />
+                <SomeButton
+                  icon={<FaBookOpen />}
+                  bookId={book.id}
+                  isBookPremium={isPremium}
+                />
+                <SomeButton
+                  text="Listen"
+                  icon={<FaMicrophone />}
+                  bookId={book.id}
+                  isBookPremium={isPremium}
+                />
               </div>
               <div className="inner-book__bookmark">
                 <div className="inner-book__bookmark--icon"></div>

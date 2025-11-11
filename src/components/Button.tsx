@@ -1,25 +1,42 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 import { openModal } from "@/lib/store/modalSlice";
 
 interface SomeButtonProps {
   text?: string; 
   icon?: React.ReactNode;
+  bookId?: string;
+  isBookPremium?: boolean;
 }
 
-export default function SomeButton({ text = "Read", icon }: SomeButtonProps) {
+export default function SomeButton({ text = "Read", icon, bookId, isBookPremium = false, }: SomeButtonProps) {
   const dispatch = useDispatch();
-
-  const isLoggedIn = useSelector((state: any) => state.auth?.isLoggedIn);
+  const router = useRouter();
+  
+  const {uid, subscription, isLoading} = useSelector((state: any) => state.auth);
 
   const handleClick = () => {
-    if (!isLoggedIn) {
+    if (isLoading) return;
+
+    if (!isBookPremium) {
+        if (bookId) router.push(`/player/${bookId}`);
+        return;
+    }
+    if (!uid) {
       dispatch(openModal());
       return;
+    } 
+    if (subscription === "basic"){
+        router.push("/sales-page");
+        return;
+    }
+    if (subscription === "premium"){
+        if (bookId) router.push(`/player/${bookId}`);
+        return;
     }
 
-    console.log("User is logged in, continue...");
   };
 
   return (
