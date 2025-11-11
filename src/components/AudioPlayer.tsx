@@ -85,8 +85,8 @@ export default function AudioPlayer({ audioLink, title, author, imageLink }: Pro
     <div className="audio__wrapper">
       <div className="audio__track--wrapper">
         <figure className="audio__track--image-mask">
-          <figure className="book__image--wrapper">
-            <img className="book__image" src={imageLink} alt={title} />
+          <figure className="book__image--wrapper-audio">
+            <img className="book__image-audio" src={imageLink} alt={title} />
           </figure>
         </figure>
         <div className="audio__track--details-wrapper">
