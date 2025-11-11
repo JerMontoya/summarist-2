@@ -1,0 +1,79 @@
+.row {
+    max-width: 1070px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.container {
+    padding: 40px 0;
+    width: 100%;
+}
+
+.for-you__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #032b41;
+    margin-bottom: 16px;
+}
+
+.for-you__sub--title {
+    font-weight: 300;
+    color: #394547;
+    margin-bottom: 16px;
+}
+
+.saved__books {
+    margin-bottom: 24px;
+}
+
+.for-you__recommended--books {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: mandatory;
+    scroll-snap-type: x;
+    margin-bottom: 8px;
+    max-width: 200px;
+    padding: 6px;
+}
+
+.for-you__recommended--books:hover {
+    background-color: #f1f6f4;
+    max-width: 200px;
+}
+
+.recommended__book-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #032b41;
+  margin: 8px 0;
+  max-width: 200px;
+}
+
+.recommended__book-author {
+  font-size: 14px;
+  color: #6b757b;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.book__image--wrapper {
+  width: 172px;
+  height: 172px;
+}
+
+.book__image {
+  width: 100%;
+  height: 100%;
+}
+
+.remove__button {
+    font-size: 14px;
+    font-weight: 400;
+    color: red;
+    border: 2px solid;
+    border-radius: 4px;
+    padding: 4px;
+    margin: 0 0 32px 6px;
+}

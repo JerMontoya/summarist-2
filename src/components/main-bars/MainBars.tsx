@@ -7,12 +7,26 @@ import {
   FaHouse,
   FaRightToBracket,
 } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogoutButton from "../LogoutButton";
 
 
 export default function MainBars() {
   const [open, setOpen] = useState(false);
+
+   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    const update = () => setIsMobile(window.innerWidth < 768);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const ariaHidden = isMounted ? (!open && isMobile) : false;
 
   return (
     <div>
@@ -52,7 +66,7 @@ export default function MainBars() {
       />
       <aside
         className={`sidebar ${open ? "sidebar--opened" : ""}`}
-        aria-hidden={!open && typeof window !== "undefined" && window.innerWidth < 768}
+        aria-hidden={ariaHidden}
       >
         <div className="sidebar sidebar--opened">
           <div className="sidebar__logo">

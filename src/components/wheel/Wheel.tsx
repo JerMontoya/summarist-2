@@ -30,7 +30,7 @@ export default function Wheel({ books }: WheelProps) {
       {books.map((book) => (
         <Link
           key={book.id}
-          href={`/books/${book.id}`}
+          href={`/books/${book.id}`} 
           className="for-you__recommended--books-link"
         >
           {book.subscriptionRequired && (

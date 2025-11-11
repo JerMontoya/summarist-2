@@ -10,6 +10,7 @@ import {
   FaStar,
 } from "react-icons/fa";
 import SomeButton from "@/components/Button";
+import AddToLibraryButton from "@/components/AddToLibrary";
 
 export default async function BookPage({ params }) {
   const { id } = await params;
@@ -91,9 +92,16 @@ export default async function BookPage({ params }) {
               </div>
               <div className="inner-book__bookmark">
                 <div className="inner-book__bookmark--icon"></div>
-                <div className="inner-book__bookmark--text">
-                  <FaBookmark /> Add to My Library
-                </div>
+                <FaBookmark />
+                <AddToLibraryButton
+                  book={{
+                    id: book.id,
+                    title: book.title,
+                    author: book.author,
+                    imageLink: book.imageLink,
+                    subscriptionRequired: book.subscriptionRequired,
+                  }}
+                />
               </div>
               <div className="inner-book__secondary--title">
                 What's it about?
