@@ -39,7 +39,7 @@ export default function Library() {
       <div className="row">
         <div className="container">
           <div className="for-you__title">Saved Books</div>
-          <div className="for-you__sub--title"></div>
+          <div className="for-you__sub--title">{books.length} {books.length === 1 ? "Item" : "Items"}</div>
           <div className="saved__books">
             {books.length === 0 ? (
               <p>No books yet — add some from the book page.</p>
@@ -61,7 +61,6 @@ export default function Library() {
                         <div className="recommended__book-author">
                           {b.author}
                         </div>
-                        {/* <div>{b.subTitle}</div> */}
                       </Link>
                     </div>
 
