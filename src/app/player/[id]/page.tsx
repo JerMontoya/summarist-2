@@ -30,31 +30,7 @@ export default async function Player({ params }) {
           author={book.author}
           imageLink={book.imageLink}
         />
-        {/* <div className="audio__wrapper">
-          <div className="audio__track--wrapper">
-            <figure className="audio__track--image-mask">
-              <figure className="book__image--wrapper">
-                <img className="book__image" src={book.imageLink} alt="" />
-              </figure>
-            </figure>
-            <div className="audio__track--details-wrapper">
-              <div className="audio__track--title">{book.title}</div>
-              <div className="audio__track--author">{book.author}</div>
-            </div>
-          </div>
-          <div className="audio__controls--wrapper">
-            <div className="audio__controls">
-              <button className="audio__controls--btn"><FaRotateLeft /></button>
-              <button className="audio__controls--btn audio__controls--btn-play"><FaCirclePlay /></button>
-              <button className="audio__controls--btn"><FaRotateRight /></button>
-            </div>
-          </div>
-          <div className="audio__progress--wrapper">
-            <div className="audio__time"></div>
-            <input type="range" className="audio__progress--bar" value="0" />
-            <div className="audio__time"></div>
-          </div>
-        </div> */}
+      
       </div>
     </div>
   );
