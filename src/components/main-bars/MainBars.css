@@ -177,6 +177,61 @@
     height: 24px;
 }
 
+.search__results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #bac8ce;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.search__result {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.search__result:hover {
+  background-color: #f1f6f4;
+}
+
+.audio__track--wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.book__image--wrapper-audio {
+  width: 56px;
+  height: 56px;
+}
+
+.book__image-audio {
+  width: 100%;
+  height: 100%;
+}
+
+.audio__track--details-wrapper {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+
+ .audio__track--title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .audio__track--author {
+  color: #bac8ce;
+}
+
 @media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;

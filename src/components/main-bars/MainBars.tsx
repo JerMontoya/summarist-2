@@ -10,23 +10,57 @@ import {
 import { useEffect, useState } from "react";
 import LogoutButton from "../LogoutButton";
 
-
 export default function MainBars() {
   const [open, setOpen] = useState(false);
-
-   const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
+  const [results, setResults] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  useEffect(() => {
+    if (!debouncedQuery) {
+      setResults([]);
+      return;
+    }
+
+    const fetchBooks = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(
+          `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${debouncedQuery}`
+        );
+        const data = await res.json();
+        setResults(data);
+      } catch (error) {
+        console.error("Error fetching books:", error);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, [debouncedQuery]);
 
   useEffect(() => {
     setIsMounted(true);
-
     const update = () => setIsMobile(window.innerWidth < 768);
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const ariaHidden = isMounted ? (!open && isMobile) : false;
+  const ariaHidden = isMounted ? !open && isMobile : false;
 
   return (
     <div>
@@ -39,11 +73,46 @@ export default function MainBars() {
                   className="search__input"
                   type="text"
                   placeholder="Search for books"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
                 <div className="search__icon">
                   <FaSearch className="fasearch" />
                 </div>
               </div>
+
+              {query && (
+                <div className="search__results">
+                  {loading && <div>Loading...</div>}
+                  {!loading && results.length === 0 && (
+                    <div>No results found</div>
+                  )}
+                  {!loading &&
+                    results.map((book: any, idx) => (
+                      <div key={idx} className="search__result">
+                        <div className="audio__track--wrapper">
+                          <figure className="audio__track--image-mask">
+                            <figure className="book__image--wrapper-audio">
+                              <img
+                                className="book__image-audio"
+                                src={book.imageLink}
+                                alt={book.title}
+                              />
+                            </figure>
+                          </figure>
+                          <div className="audio__track--details-wrapper">
+                            <div className="audio__track--title">
+                              {book.title}
+                            </div>
+                            <div className="audio__track--author">
+                              {book.author}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

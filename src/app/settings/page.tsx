@@ -5,6 +5,7 @@ import { RootState } from "@/lib/store/store";
 import { logout, setSubscription } from "@/lib/store/authSlice";
 import MainBars from "@/components/main-bars/MainBars";
 import { openModal } from "@/lib/store/modalSlice";
+import Link from "next/link";
 
 export default function SettingsPage() {
   const dispatch = useDispatch();
@@ -49,9 +50,9 @@ export default function SettingsPage() {
     dispatch(setSubscription("basic"));
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-  };
+//   const handleLogout = () => {
+//     dispatch(logout());
+//   };
 
   return (
     <div>
@@ -69,16 +70,16 @@ export default function SettingsPage() {
 
           {subscription === "basic" ? (
             <div className="setting__content">
-              <button
+              <Link
                 className="btn settings__upgrade--btn"
-                onClick={handleUpgrade}
+                href="./sales-page"
               >
                 Upgrade to Premium
-              </button>
+              </Link>
             </div>
           ) : (
             <div className="setting__content">
-              <button className="btn btn--secondary" onClick={handleDowngrade}>
+              <button className="btn btn--secondary settings__login--btn" onClick={handleDowngrade}>
                 Downgrade to Basic
               </button>
             </div>

@@ -136,7 +136,6 @@ export default function AudioPlayer({ audioLink, title, author, imageLink }: Pro
   );
 }
 
-// small helper
 function formatTime(sec: number) {
   if (!sec || Number.isNaN(sec)) return "0:00";
   const m = Math.floor(sec / 60);
