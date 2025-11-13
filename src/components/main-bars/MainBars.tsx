@@ -24,6 +24,7 @@ export default function MainBars() {
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const [sidebarLoading, setSidebarLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [results, setResults] = useState<any[]>([]);
@@ -33,6 +34,11 @@ export default function MainBars() {
 
   const showSelector =
     pathname?.startsWith("/player/") || pathname === "/player";
+
+  useEffect(() => {
+    const t = setTimeout(() => setSidebarLoading(false), 200);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -76,6 +82,39 @@ export default function MainBars() {
 
   const ariaHidden = isMounted ? !open && isMobile : false;
 
+  function SidebarSkeleton() {
+    return (
+      <div className="sidebar__top">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="sidebar__link--wrapper skeleton-link">
+            <div className="sidebar__link--line skeleton-block small" />
+            <div className="sidebar__icon--wrapper skeleton-block circle" />
+            <div className="sidebar__link--text skeleton-block text" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  function SearchResultSkeleton() {
+    return (
+      <div className="search__results">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="search__result skeleton-row">
+            <div className="audio__track--wrapper">
+              <div className="book__image--wrapper-audio skeleton-block img-square" />
+              <div className="audio__track--details-wrapper">
+                <div className="skeleton-block text short" />
+                <div className="skeleton-block text tiny" />
+                <div className="recommended__book--details skeleton-block tiny" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="search__background">
@@ -96,44 +135,49 @@ export default function MainBars() {
               </div>
 
               {query && (
-                <div className="search__results">
-                  {loading && <div>Loading...</div>}
-                  {!loading && results.length === 0 && (
-                    <div>No results found</div>
-                  )}
-                  {!loading &&
-                    results.map((book: any, idx) => (
-                      <div key={idx} className="search__result">
-                        <div className="audio__track--wrapper">
-                          <figure className="audio__track--image-mask">
-                            <figure className="book__image--wrapper-audio">
-                              <img
-                                className="book__image-audio"
-                                src={book.imageLink}
-                                alt={book.title}
-                              />
-                            </figure>
-                          </figure>
-                          <div className="audio__track--details-wrapper">
-                            <div className="audio__track--title">
-                              {book.title}
-                            </div>
-                            <div className="search__book--author">
-                              {book.author}
-                            </div>
-                            <div className="search__book--duration">
-                              <div className="recommended__book--details">
-                                <div className="recommended__book--details-icon">
-                                  <FaRegClock className="recommended__book--details-icon svg" />
+                <>
+                  {loading ? (
+                    <SearchResultSkeleton />
+                  ) : (
+                    <div className="search__results">
+                      {!loading && results.length === 0 && (
+                        <div>No results found</div>
+                      )}
+                      {!loading &&
+                        results.map((book: any, idx) => (
+                          <div key={idx} className="search__result">
+                            <div className="audio__track--wrapper">
+                              <figure className="audio__track--image-mask">
+                                <figure className="book__image--wrapper-audio">
+                                  <img
+                                    className="book__image-audio"
+                                    src={book.imageLink}
+                                    alt={book.title}
+                                  />
+                                </figure>
+                              </figure>
+                              <div className="audio__track--details-wrapper">
+                                <div className="audio__track--title">
+                                  {book.title}
                                 </div>
-                                <Duration audioLink={book.audioLink} />
+                                <div className="search__book--author">
+                                  {book.author}
+                                </div>
+                                <div className="search__book--duration">
+                                  <div className="recommended__book--details">
+                                    <div className="recommended__book--details-icon">
+                                      <FaRegClock className="recommended__book--details-icon svg" />
+                                    </div>
+                                    <Duration audioLink={book.audioLink} />
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -164,49 +208,52 @@ export default function MainBars() {
             <img className="logo__img" src="/logo.png" alt="" />
           </div>
           <div className="sidebar__wrapper">
-            <div className="sidebar__top">
-              <a className="sidebar__link--wrapper" href="/for-you">
-                <div
-                  className={`sidebar__link--line ${
-                    pathname === "/for-you" ? "active--tab" : ""
-                  }`}
-                ></div>
-                <div className="sidebar__icon--wrapper">
-                  <FaHouse className="img" />
-                </div>
-                <div className="sidebar__link--text">For You</div>
-              </a>
+            {sidebarLoading ? (
+              <SidebarSkeleton />
+            ) : (
+              <div className="sidebar__top">
+                <a className="sidebar__link--wrapper" href="/for-you">
+                  <div
+                    className={`sidebar__link--line ${
+                      pathname === "/for-you" ? "active--tab" : ""
+                    }`}
+                  ></div>
+                  <div className="sidebar__icon--wrapper">
+                    <FaHouse className="img" />
+                  </div>
+                  <div className="sidebar__link--text">For You</div>
+                </a>
 
-              <a className="sidebar__link--wrapper" href="/library">
-                <div
-                  className={`sidebar__link--line ${
-                    pathname === "/library" ? "active--tab" : ""
-                  }`}
-                ></div>
-                <div className="sidebar__icon--wrapper">
-                  <FaBookmark className="img" />
-                </div>
-                <div className="sidebar__link--text">My Library</div>
-              </a>
+                <a className="sidebar__link--wrapper" href="/library">
+                  <div
+                    className={`sidebar__link--line ${
+                      pathname === "/library" ? "active--tab" : ""
+                    }`}
+                  ></div>
+                  <div className="sidebar__icon--wrapper">
+                    <FaBookmark className="img" />
+                  </div>
+                  <div className="sidebar__link--text">My Library</div>
+                </a>
 
-              <div className="sidebar__link--wrapper sidebar__link--not-allowed">
-                <div className="sidebar__link--line"></div>
-                <div className="sidebar__icon--wrapper">
-                  <FaHighlighter className="img" />
+                <div className="sidebar__link--wrapper sidebar__link--not-allowed">
+                  <div className="sidebar__link--line"></div>
+                  <div className="sidebar__icon--wrapper">
+                    <FaHighlighter className="img" />
+                  </div>
+                  <div className="sidebar__link--text">Highlights</div>
                 </div>
-                <div className="sidebar__link--text">Highlights</div>
+
+                <div className="sidebar__link--wrapper sidebar__link--not-allowed">
+                  <div className="sidebar__link--line"></div>
+                  <div className="sidebar__icon--wrapper">
+                    <FaSearch className="img" />
+                  </div>
+                  <div className="sidebar__link--text">Search</div>
+                </div>
+                {showSelector && <FontSizeSelector />}
               </div>
-
-              <div className="sidebar__link--wrapper sidebar__link--not-allowed">
-                <div className="sidebar__link--line"></div>
-                <div className="sidebar__icon--wrapper">
-                  <FaSearch className="img" />
-                </div>
-                <div className="sidebar__link--text">Search</div>
-              </div>
-
-              {showSelector && <FontSizeSelector />}
-            </div>
+            )}
 
             <div className="sidebar__bottom">
               <a className="sidebar__link--wrapper" href="/settings">

@@ -264,6 +264,95 @@
   color: #bac8ce;
 }
 
+/* ---------- Skeleton styles ---------- */
+
+.skeleton-block {
+  background: linear-gradient(90deg, #eef2f1 25%, #f6faf8 50%, #eef2f1 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s linear infinite;
+  border-radius: 4px;
+}
+
+/* sidebar skeleton pieces */
+.skeleton-link {
+  padding-left: 8px;
+}
+
+.skeleton-link .small {
+  width: 5px;
+  height: 100%;
+  margin-right: 16px;
+  display: inline-block;
+}
+
+.skeleton-link .circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  margin-right: 8px;
+}
+
+.skeleton-link .text {
+  width: 110px;
+  height: 14px;
+  border-radius: 6px;
+}
+
+/* search skeleton row */
+.skeleton-row {
+  padding: 8px 12px;
+}
+
+.img-square {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.skeleton-row .text.short {
+  width: 180px;
+  height: 14px;
+  margin-bottom: 8px;
+}
+
+.skeleton-row .text.tiny {
+  width: 120px;
+  height: 12px;
+  margin-bottom: 6px;
+}
+
+.skeleton-row .tiny {
+  width: 60px;
+  height: 12px;
+}
+
+/* ensure skeletons align with existing layout */
+.sidebar__link--wrapper.skeleton-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 56px;
+  margin-bottom: 8px;
+}
+
+/* shimmer keyframes */
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* small tweaks to keep search dropdown on top */
+.search__results { z-index: 1400; }
+
+/* "No results" style to match */
+.search__empty {
+  padding: 12px;
+  color: #6b757b;
+}
+
+
 @media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;

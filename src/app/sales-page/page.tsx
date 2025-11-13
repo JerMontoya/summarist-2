@@ -3,17 +3,22 @@ import { FaCaretDown, FaFile, FaHandshake, FaSeedling } from "react-icons/fa";
 import "./sales-page.css";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { FaSpinner } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function SalesPage() {
   const [selected, setSelected] = useState<"yearly" | "monthly" | null>(
     "yearly"
   );
 
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // default open first (optional)
+  const [openIndex, setOpenIndex] = useState<number | null>(0); 
   const collapseRefs = useRef<HTMLDivElement[]>([]);
   const handleSelect = (which: "yearly" | "monthly") => setSelected(which);
 
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
 
   const handleKey = (e: React.KeyboardEvent, which: "yearly" | "monthly") => {
     if (e.key === " " || e.key === "Enter") {
@@ -25,7 +30,6 @@ export default function SalesPage() {
   const setCollapseRef = (el: HTMLDivElement | null, i: number) => {
     if (!el) return;
     collapseRefs.current[i] = el;
-    // initialize height if this index is open on mount
     if (openIndex === i) {
       el.style.height = el.scrollHeight + "px";
     } else {
@@ -60,7 +64,6 @@ export default function SalesPage() {
     setOpenIndex(i);
   };
 
-  // Ensure that on resize we update open panel height
   useEffect(() => {
     const onResize = () => {
       if (openIndex !== null && collapseRefs.current[openIndex]) {
@@ -71,8 +74,16 @@ export default function SalesPage() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, [openIndex]);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800, // animation duration in ms
+      once: true,    // only animate once
+    });
+  }, []);
+
   return (
-    <div>
+    <div data-aos="fade-right">
       <div id="__next">
         <div className="wrapper wrapper__full">
           <div className="plan">
@@ -164,17 +175,28 @@ export default function SalesPage() {
                   <span className="btn--wrapper">
                     <button
                       className="btn"
+                      disabled={loading}
                       onClick={() => {
+                        setLoading(true);
                         const plan =
                           selected === "yearly" ? "yearly" : "monthly";
                         const price = selected === "yearly" ? "99.99" : "9.99";
-                        router.push(`/payment?plan=${plan}&price=${price}`);
+                        setTimeout(() => {
+
+                          router.push(`/payment?plan=${plan}&price=${price}`);
+                        }, 500)
                       }}
                     >
-                      Start your{" "}
-                      {selected === "yearly"
-                        ? "free 7-day trial"
-                        : "first month"}
+                      {loading ? (
+                        <FaSpinner className="spinner" />
+                      ) : (
+                        <>
+                          Start your{" "}
+                          {selected === "yearly"
+                            ? "free 7-day trial"
+                            : "first month"}
+                        </>
+                      )}
                     </button>
                   </span>
                   <div className="plan__disclaimer">

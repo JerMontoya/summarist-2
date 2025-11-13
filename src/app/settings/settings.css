@@ -116,3 +116,33 @@ button {
     margin-bottom: 0;
     border-bottom: none;
 }
+
+.skeleton-rectangle {
+  width: 30%;
+  height: 50px;
+  background-color: #e1e7ea;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-rectangle-long {
+  width: 50%;
+  height: 50px;
+  background-color: #e1e7ea;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}

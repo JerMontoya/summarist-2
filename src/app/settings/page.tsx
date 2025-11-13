@@ -2,22 +2,31 @@
 import "./settings.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/lib/store/store";
-import { logout, setSubscription } from "@/lib/store/authSlice";
+import { setSubscription } from "@/lib/store/authSlice";
 import MainBars from "@/components/main-bars/MainBars";
 import { openModal } from "@/lib/store/modalSlice";
 import Link from "next/link";
+import ClientMountDelay from "@/components/skeletons/ClientMountDelay";
+import SkeletonSettings from "@/components/skeletons/SkeletonSettings";
 
 export default function SettingsPage() {
   const dispatch = useDispatch();
-  const { uid, subscription, isLoading } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { uid, subscription } = useSelector((state: RootState) => state.auth);
 
-  if (isLoading) {
-    return <p>Loading...</p>;
+  // const isLoading = uid === undefined;
+
+  if (uid === undefined) {
+    return (
+      <div className="row">
+        <MainBars />
+        <div className="section__title page__title">Account Settings</div>
+        <ClientMountDelay ms={350} fallback={<SkeletonSettings />}>
+        <></></ClientMountDelay>
+      </div>
+    );
   }
 
-  if (!uid) {
+  if (uid === null) {
     return (
       <div>
         <MainBars />
@@ -42,17 +51,9 @@ export default function SettingsPage() {
     );
   }
 
-  const handleUpgrade = () => {
-    dispatch(setSubscription("premium"));
-  };
-
   const handleDowngrade = () => {
     dispatch(setSubscription("basic"));
   };
-
-//   const handleLogout = () => {
-//     dispatch(logout());
-//   };
 
   return (
     <div>
@@ -60,35 +61,37 @@ export default function SettingsPage() {
       <div className="container">
         <div className="row">
           <div className="section__title page__title">Account Settings</div>
-          {/* <p>
-            <strong>User ID:</strong> {uid}
-          </p> */}
-          <div className="setting__content">
-            <div className="settings__sub--title">Your Subscription Plan</div>
-            <div className="settings__text">{subscription}</div>
-          </div>
-
-          {subscription === "basic" ? (
+          <ClientMountDelay ms={350} fallback={<SkeletonSettings />}>
             <div className="setting__content">
-              <Link
-                className="btn settings__upgrade--btn"
-                href="./sales-page"
-              >
-                Upgrade to Premium
-              </Link>
+              <div className="settings__sub--title">Your Subscription Plan</div>
+              <div className="settings__text">{subscription}</div>
             </div>
-          ) : (
-            <div className="setting__content">
-              <button className="btn btn--secondary settings__login--btn" onClick={handleDowngrade}>
-                Downgrade to Basic
-              </button>
-            </div>
-          )}
 
-          <div style={{ marginTop: "24px" }} className="setting__content">
-            <div className="settings__sub--title">Email</div>
-            <div className="settings__text">fake@email.com</div>
-          </div>
+            {subscription === "basic" ? (
+              <div className="setting__content">
+                <Link
+                  className="btn settings__upgrade--btn"
+                  href="./sales-page"
+                >
+                  Upgrade to Premium
+                </Link>
+              </div>
+            ) : (
+              <div className="setting__content">
+                <button
+                  className="btn btn--secondary settings__login--btn"
+                  onClick={handleDowngrade}
+                >
+                  Downgrade to Basic
+                </button>
+              </div>
+            )}
+
+            <div style={{ marginTop: "24px" }} className="setting__content">
+              <div className="settings__sub--title">Email</div>
+              <div className="settings__text">fake@email.com</div>
+            </div>
+          </ClientMountDelay>
         </div>
       </div>
     </div>

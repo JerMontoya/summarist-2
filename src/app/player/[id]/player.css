@@ -142,6 +142,29 @@ button {
   font-size: 14px;
 }
 
+/* Skeleton State */
+
+.spinner__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* centers vertically */
+  width: 100%;
+}
+
+.spinner__icon {
+  font-size: 48px;
+  color: #032b41;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 @media (max-width: 768px) {
   .audio__wrapper {
     height: 180px;

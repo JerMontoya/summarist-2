@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
-  uid: string | null;
+  uid?: string | null;
   isLoading: boolean;
   subscription: "basic" | "premium" 
 }
 
 const initialState: AuthState = {
-  uid: null,
+  uid: undefined,
   isLoading: true,
   subscription: "basic",
 };
