@@ -33,6 +33,7 @@ button {
   white-space: pre-line;
   line-height: 1.4;
   color: #032b41;
+  margin-bottom: 50px;
 }
 
 .audio__wrapper {

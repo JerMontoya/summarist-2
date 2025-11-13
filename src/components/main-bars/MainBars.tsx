@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import LogoutButton from "../LogoutButton";
+import { usePathname } from "next/navigation";
+import FontSizeSelector from "../font-size/page";
 
 export default function MainBars() {
   const [open, setOpen] = useState(false);
@@ -19,6 +21,11 @@ export default function MainBars() {
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const pathname = usePathname();
+
+  const showSelector =
+    pathname?.startsWith("/player/") || pathname === "/player";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -144,7 +151,11 @@ export default function MainBars() {
           <div className="sidebar__wrapper">
             <div className="sidebar__top">
               <a className="sidebar__link--wrapper" href="/for-you">
-                <div className="sidebar__link--line active--tab"></div>
+                <div
+                  className={`sidebar__link--line ${
+                    pathname === "/for-you" ? "active--tab" : ""
+                  }`}
+                ></div>
                 <div className="sidebar__icon--wrapper">
                   <FaHouse className="img" />
                 </div>
@@ -152,7 +163,11 @@ export default function MainBars() {
               </a>
 
               <a className="sidebar__link--wrapper" href="/library">
-                <div className="sidebar__link--line"></div>
+                <div
+                  className={`sidebar__link--line ${
+                    pathname === "/library" ? "active--tab" : ""
+                  }`}
+                ></div>
                 <div className="sidebar__icon--wrapper">
                   <FaBookmark className="img" />
                 </div>
@@ -174,11 +189,17 @@ export default function MainBars() {
                 </div>
                 <div className="sidebar__link--text">Search</div>
               </div>
+
+              {showSelector && <FontSizeSelector />}
             </div>
 
             <div className="sidebar__bottom">
               <a className="sidebar__link--wrapper" href="/settings">
-                <div className="sidebar__link--line"></div>
+                <div
+                  className={`sidebar__link--line ${
+                    pathname === "/settings" ? "active--tab" : ""
+                  }`}
+                ></div>
                 <div className="sidebar__icon--wrapper">
                   <FaGear className="img" />
                 </div>

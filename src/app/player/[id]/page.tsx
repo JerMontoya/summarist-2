@@ -1,9 +1,12 @@
 import MainBars from "@/components/main-bars/MainBars";
 import "./player.css"
 import { Book } from "@/app/types";
-import { FaCirclePlay, FaRotateLeft, FaRotateRight } from "react-icons/fa6";
 import AudioPlayer from "@/components/AudioPlayer";
+import SummaryWithFontSize from "@/components/SummaryWithFontSize";
 
+interface PlayerProps {
+  params: { id: string };
+}
 
 export default async function Player({ params }) {
   const { id } = await params;
@@ -22,7 +25,10 @@ export default async function Player({ params }) {
       <div className="summary">
         <div className="audio__book--summary">
           <div className="audio__book--summary-title">{book.title}</div>
-          <div className="audio__book--summary-text">{book.summary}</div>
+          <div className="audio__book--summary-text">
+          <SummaryWithFontSize summary={book.summary} />
+          </div>
+          {/* <div className="audio__book--summary-text">{book.summary}</div> */}
         </div>
         <AudioPlayer
           audioLink={book.audioLink}
