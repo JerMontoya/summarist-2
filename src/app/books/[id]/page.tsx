@@ -15,7 +15,6 @@ import Duration from "@/components/Duration";
 import ClientMountDelay from "@/components/skeletons/ClientMountDelay";
 import SkeletonBook from "@/components/skeletons/SkeletonBook";
 
-
 interface BookPageProps {
   params: {
     id: string;
@@ -23,7 +22,7 @@ interface BookPageProps {
 }
 
 interface Book {
- id: string;
+  id: string;
   author: string;
   title: string;
   subTitle: string;
@@ -41,7 +40,7 @@ interface Book {
   authorDescription: string;
 }
 
-async function getParams(params: BookPageProps['params']) {
+async function getParams(params: BookPageProps["params"]) {
   return params;
 }
 
@@ -129,15 +128,7 @@ export default async function BookPage(props: BookPageProps) {
                 <div className="inner-book__bookmark">
                   <div className="inner-book__bookmark--icon"></div>
                   <FaBookmark />
-                  <AddToLibraryButton
-                    book={{
-                      id: book.id,
-                      title: book.title,
-                      author: book.author,
-                      imageLink: book.imageLink,
-                      subscriptionRequired: book.subscriptionRequired,
-                    }}
-                  />
+                  <AddToLibraryButton book={book} />
                 </div>
                 <div className="inner-book__secondary--title">
                   What's it about?
