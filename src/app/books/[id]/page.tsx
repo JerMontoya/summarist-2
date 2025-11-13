@@ -1,6 +1,6 @@
 import MainBars from "@/components/main-bars/MainBars";
 import "./book.css";
-// import { Book } from "@/app/types";
+// import { Book } from "@/app/types"; 
 import {
   FaBookmark,
   FaBookOpen,
