@@ -5,7 +5,6 @@ import AudioPlayer from "@/components/AudioPlayer";
 import SummaryWithFontSize from "@/components/SummaryWithFontSize";
 import ClientMountDelay from "@/components/skeletons/ClientMountDelay";
 import Spinner from "@/components/skeletons/Spinner";
-// import { FaSpinner } from "react-icons/fa";
 
 // interface PlayerProps {
 //   params: { id: string };
