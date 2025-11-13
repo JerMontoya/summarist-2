@@ -1,6 +1,6 @@
 import MainBars from "@/components/main-bars/MainBars";
 import "./book.css";
-import { Book } from "@/app/types";
+// import { Book } from "@/app/types";
 import {
   FaBookmark,
   FaBookOpen,
@@ -18,12 +18,35 @@ import SkeletonBook from "@/components/skeletons/SkeletonBook";
 
 interface BookPageProps {
   params: {
-    id: Promise <{ id: string }>;
+    id: string;
   };
 }
 
-export default async function BookPage({ params }: BookPageProps) {
-  const { id } = await params;
+interface Book {
+ id: string;
+  author: string;
+  title: string;
+  subTitle: string;
+  imageLink: string;
+  audioLink: string;
+  totalRating: number;
+  averageRating: number;
+  keyIdeas: number;
+  type: string;
+  status: string;
+  subscriptionRequired: boolean;
+  summary: string;
+  tags: string[];
+  bookDescription: string;
+  authorDescription: string;
+}
+
+async function getParams(params: BookPageProps['params']) {
+  return params;
+}
+
+export default async function BookPage(props: BookPageProps) {
+  const { id } = await getParams(props.params);
 
   const res = await fetch(
     `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`,
