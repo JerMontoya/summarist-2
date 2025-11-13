@@ -15,7 +15,14 @@ import Duration from "@/components/Duration";
 import ClientMountDelay from "@/components/skeletons/ClientMountDelay";
 import SkeletonBook from "@/components/skeletons/SkeletonBook";
 
-export default async function BookPage({ params }) {
+
+interface BookPageProps {
+  params: {
+    id: Promise <{ id: string }>;
+  };
+}
+
+export default async function BookPage({ params }: BookPageProps) {
   const { id } = await params;
 
   const res = await fetch(
