@@ -84,21 +84,20 @@
 .selected__book--icon {
   display: flex;
   align-items: center;
-  width: 40px;
+  width: 34px;
   min-width: 40px;
-  height: 40px;
+  height: 34px;
 }
 
 .selected__book--icon svg {
   width: 100%;
   height: 100%;
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   display: flex;
   justify-content: center;
   border-radius: 50%;
   align-items: center;
-  padding: 4px 4px 4px 6px;
 }
 
 .selected__book--duration {

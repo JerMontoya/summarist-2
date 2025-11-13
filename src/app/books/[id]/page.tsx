@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import SomeButton from "@/components/Button";
 import AddToLibraryButton from "@/components/AddToLibrary";
+import Duration from "@/components/Duration";
 
 export default async function BookPage({ params }) {
   const { id } = await params;
@@ -59,7 +60,9 @@ export default async function BookPage({ params }) {
                     <div className="inner-book__icon">
                       <FaClock />
                     </div>
-                    <div className="inner-book__duration"></div>
+                    <div className="inner-book__duration">
+                      <Duration audioLink={book.audioLink} />
+                    </div>
                   </div>
                   <div className="inner-book__description">
                     <div className="inner-book__icon">
@@ -122,7 +125,7 @@ export default async function BookPage({ params }) {
               <figure className="book__image--wrapper">
                 <img
                   className="book__image"
-                  src={book.imageLink}
+                  src={book.imageLink} 
                   alt="Book Cover"
                 />
               </figure>

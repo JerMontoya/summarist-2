@@ -24,6 +24,8 @@ button {
 .book__image--wrapper {
   width: 300px;
   height: 300px;
+  min-width: 300px;
+  min-height: 300px;
 }
 
 .book__image {
@@ -79,13 +81,14 @@ button {
   color: #032b41;
   font-weight: 500;
   font-size: 14px;
+  
 }
 
 .inner-book__icon {
   display: flex;
   height: 24px;
   width: 24px;
-  margin-right: 4px;
+  margin-right: 8px;
 }
 
 .inner-book__icon svg {

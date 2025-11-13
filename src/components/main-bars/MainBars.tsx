@@ -1,5 +1,11 @@
 "use client";
-import { FaBars, FaBookmark, FaHighlighter, FaSearch } from "react-icons/fa";
+import {
+  FaBars,
+  FaBookmark,
+  FaHighlighter,
+  FaRegClock,
+  FaSearch,
+} from "react-icons/fa";
 import "./MainBars.css";
 import {
   FaCircleQuestion,
@@ -11,6 +17,7 @@ import { useEffect, useState } from "react";
 import LogoutButton from "../LogoutButton";
 import { usePathname } from "next/navigation";
 import FontSizeSelector from "../font-size/page";
+import Duration from "../Duration";
 
 export default function MainBars() {
   const [open, setOpen] = useState(false);
@@ -111,8 +118,16 @@ export default function MainBars() {
                             <div className="audio__track--title">
                               {book.title}
                             </div>
-                            <div className="audio__track--author">
+                            <div className="search__book--author">
                               {book.author}
+                            </div>
+                            <div className="search__book--duration">
+                              <div className="recommended__book--details">
+                                <div className="recommended__book--details-icon">
+                                  <FaRegClock className="recommended__book--details-icon svg" />
+                                </div>
+                                <Duration audioLink={book.audioLink} />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -132,7 +147,7 @@ export default function MainBars() {
         onClick={() => setOpen((s) => !s)}
         type="button"
       >
-        {open ? "" : <FaBars />}
+        {open ? "X" : <FaBars />}
       </button>
 
       <div
@@ -214,7 +229,7 @@ export default function MainBars() {
                 <div className="sidebar__link--text">Help & Support</div>
               </div>
 
-              <div className="sidebar__link--wrapper sidebar__link--not-allowed">
+              <div className="sidebar__link--wrapper">
                 <div className="sidebar__link--line"></div>
                 <div className="sidebar__icon--wrapper">
                   <FaRightToBracket className="img" />

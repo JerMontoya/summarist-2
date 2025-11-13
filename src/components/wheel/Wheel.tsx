@@ -4,6 +4,8 @@ import { Book } from "@/app/types";
 import "@/app/for-you/for-you.css";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Duration from "../Duration";
+import { FaRegClock, FaRegStar } from "react-icons/fa";
 
 type WheelProps = {
   books: Book[];
@@ -26,15 +28,17 @@ export default function Wheel({ books }: WheelProps) {
   }, []);
 
   return (
-    <div className="for-you__recommended--books" ref={wheelRef} >
+    <div className="for-you__recommended--books" ref={wheelRef}>
       {books.map((book) => (
         <Link
           key={book.id}
-          href={`/books/${book.id}`} 
+          href={`/books/${book.id}`}
           className="for-you__recommended--books-link"
         >
           {book.subscriptionRequired && (
-            <div className="book__pill book__pill--subscription-required">Premium</div>
+            <div className="book__pill book__pill--subscription-required">
+              Premium
+            </div>
           )}
           <figure className="book__image--wrapper">
             <img
@@ -46,7 +50,22 @@ export default function Wheel({ books }: WheelProps) {
           <div className="recommended__book-title">{book.title}</div>
           <div className="recommended__book-author">{book.author}</div>
           <div className="recommended__book--sub-title">{book.subTitle}</div>
-          <div className="recommended__book--details-wrapper"></div>
+          <div className="recommended__book--details-wrapper">
+            <div className="recommended__book--details">
+              <div className="recommended__book--details-icon">
+                <FaRegClock className="recommended__book--details-icon svg" />
+              </div>
+              <div>
+                <Duration audioLink={book.audioLink} />
+              </div>
+            </div>
+            <div className="recommended__book--details">
+              <div className="recommended__book--details-icon">
+                <FaRegStar className="recommended__book--details-icon svg" />
+              </div>
+              <div>{book.averageRating}</div>
+            </div>
+          </div>
         </Link>
       ))}
     </div>

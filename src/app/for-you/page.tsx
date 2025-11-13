@@ -3,6 +3,7 @@ import "./for-you.css";
 import { FaCirclePlay } from "react-icons/fa6";
 import { Book } from "@/app/types";
 import Wheel from "@/components/wheel/Wheel";
+import Duration from "@/components/Duration";
 
 export default async function ForYou() {
   const [selectedRes, recommendedRes, suggestedRes] = await Promise.all([
@@ -56,7 +57,9 @@ export default async function ForYou() {
                         <div className="selected__book--icon">
                           <FaCirclePlay />
                         </div>
-                        <div className="selected__book--duration"></div>
+                        <div className="selected__book--duration">
+                          <Duration audioLink={book.audioLink} />
+                        </div>
                       </div>
                     </div>
                   </div>
