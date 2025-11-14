@@ -12,7 +12,7 @@ export default function SalesPage() {
     "yearly"
   );
 
-  const [openIndex, setOpenIndex] = useState<number | null>(0); 
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const collapseRefs = useRef<HTMLDivElement[]>([]);
   const handleSelect = (which: "yearly" | "monthly") => setSelected(which);
 
@@ -39,15 +39,12 @@ export default function SalesPage() {
 
   const toggleAccordion = (i: number) => {
     const currentlyOpen = openIndex;
-    // close currently open
     if (currentlyOpen !== null && collapseRefs.current[currentlyOpen]) {
       const prevEl = collapseRefs.current[currentlyOpen];
       prevEl.style.height = "0px";
-      // remove open class for animation (we'll manage classes via DOM for icon rotation)
       prevEl.parentElement?.classList.remove("open");
     }
 
-    // open new (or close if same)
     if (currentlyOpen === i) {
       setOpenIndex(null);
       return;
@@ -55,7 +52,6 @@ export default function SalesPage() {
 
     const el = collapseRefs.current[i];
     if (el) {
-      // set height to scrollHeight to animate open
       const h = el.scrollHeight;
       el.style.height = h + "px";
       el.parentElement?.classList.add("open");
@@ -77,8 +73,8 @@ export default function SalesPage() {
 
   useEffect(() => {
     AOS.init({
-      duration: 800, // animation duration in ms
-      once: true,    // only animate once
+      duration: 800,
+      once: true,
     });
   }, []);
 
@@ -182,9 +178,8 @@ export default function SalesPage() {
                           selected === "yearly" ? "yearly" : "monthly";
                         const price = selected === "yearly" ? "99.99" : "9.99";
                         setTimeout(() => {
-
                           router.push(`/payment?plan=${plan}&price=${price}`);
-                        }, 500)
+                        }, 500);
                       }}
                     >
                       {loading ? (

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 interface Props {
-  ms?: number; // how long to show fallback
+  ms?: number; 
   fallback: React.ReactNode;
   children: React.ReactNode;
 }

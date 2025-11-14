@@ -1,14 +1,9 @@
 import MainBars from "@/components/main-bars/MainBars";
 import "./player.css";
-// import { Book } from "@/app/types";
 import AudioPlayer from "@/components/AudioPlayer";
 import SummaryWithFontSize from "@/components/SummaryWithFontSize";
 import ClientMountDelay from "@/components/skeletons/ClientMountDelay";
 import Spinner from "@/components/skeletons/Spinner";
-
-// interface PlayerProps {
-//   params: { id: string };
-// }
 
 interface PlayerProps {
   params: {

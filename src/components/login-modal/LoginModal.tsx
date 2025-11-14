@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { FaUser } from "react-icons/fa";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface LoginModalProps {
@@ -19,7 +19,7 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ onClose }: LoginModalProps) {
-    const router = useRouter();
+  const router = useRouter();
 
   const handleClose = () => {
     onClose();
@@ -73,12 +73,10 @@ export default function LoginModal({ onClose }: LoginModalProps) {
         });
         router.push("/for-you");
       }
-
-      // Reset form and close modal
       setEmail("");
       setPassword("");
       setLoading(false);
-      onClose()
+      onClose();
     } catch (err: any) {
       setLoading(false);
       const code = err?.code;
@@ -146,7 +144,11 @@ export default function LoginModal({ onClose }: LoginModalProps) {
           <>
             <h2 className="modal-title">Log in to Summarist</h2>
 
-            <Link href="/for-you" className="guest-login" onClick={() => onClose()}>
+            <Link
+              href="/for-you"
+              className="guest-login"
+              onClick={() => onClose()}
+            >
               <FaUser className="fauser" />
               <div>Login as a Guest</div>
             </Link>

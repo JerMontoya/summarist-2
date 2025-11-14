@@ -1,6 +1,5 @@
 body {
   max-width: 100%;
-  /* overflow-x: hidden; */
 }
 
 .wrapper__full {
@@ -12,7 +11,6 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  /* transition: all 0.3s; */
 }
 
 .plan {

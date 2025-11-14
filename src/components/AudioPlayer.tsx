@@ -38,7 +38,6 @@ export default function AudioPlayer({ audioLink, title, author, imageLink }: Pro
   }, [audioLink]);
 
   useEffect(() => {
-    // when audioLink changes, reset state
     setIsPlaying(false);
     setDuration(0);
     setCurrent(0);

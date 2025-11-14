@@ -10,8 +10,7 @@ export default function PaymentClient() {
   const price = searchParams.get("price");
 
   return (
-   <div className="payment-page">
-      {/* Back Link */}
+    <div className="payment-page">
       <div className="payment-page__back">
         <FaArrowLeft className="payment-page__back-icon" />
         <Link href="/sales-page" className="payment-page__back-link">
@@ -19,7 +18,6 @@ export default function PaymentClient() {
         </Link>
       </div>
 
-      {/* Plan Summary */}
       <div className="payment-page__summary">
         <p>
           You selected the <strong>{plan}</strong> plan.
@@ -29,9 +27,7 @@ export default function PaymentClient() {
         </p>
       </div>
 
-      {/* Payment Form */}
       <form className="payment-page__form">
-        {/* Card Information */}
         <div className="form-group">
           <label htmlFor="cardNumber">Card Number</label>
           <input
@@ -62,7 +58,6 @@ export default function PaymentClient() {
           </div>
         </div>
 
-        {/* Card Holder Name */}
         <div className="form-group">
           <label htmlFor="cardHolder">Card Holder Name</label>
           <input
@@ -73,7 +68,6 @@ export default function PaymentClient() {
           />
         </div>
 
-        {/* Billing Address */}
         <div className="form-group">
           <label htmlFor="billingAddress">Billing Address</label>
           <input
@@ -84,7 +78,6 @@ export default function PaymentClient() {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="form-actions">
           <button type="submit" className="btn btn--primary">
             Subscribe

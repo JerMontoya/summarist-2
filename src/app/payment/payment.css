@@ -101,10 +101,9 @@
 }
 
 .form-group--small {
-  flex: 1; /* divide space equally */
+  flex: 1;
 }
 
-/* Adjust input width inside small form groups */
 .form-group--small .form-input {
   width: 100%;
 }

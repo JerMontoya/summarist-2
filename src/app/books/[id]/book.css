@@ -192,6 +192,7 @@ button {
 }
 
 /* SKELETON STATE */
+
 .skeleton-book {
   display: flex;
   gap: 32px;
@@ -208,7 +209,6 @@ button {
   flex-shrink: 0;
 }
 
-/* Basic gray rectangle */
 .skeleton-rect {
   background-color: #e1e7ea;
   border-radius: 4px;
@@ -216,7 +216,6 @@ button {
   animation: pulse 1.5s infinite ease-in-out;
 }
 
-/* Sizes */
 .skeleton-rect.large {
   width: 70%;
   height: 50px;
@@ -242,14 +241,12 @@ button {
   height: 260px;
 }
 
-/* Subtle fade animation */
 @keyframes pulse {
   0% { opacity: 1; }
   50% { opacity: 0.6; }
   100% { opacity: 1; }
 }
 
-/* Stack vertically on mobile */
 @media (max-width: 768px) {
   .skeleton-book {
     flex-direction: column-reverse;

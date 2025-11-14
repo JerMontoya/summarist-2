@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { AiFillFileText, AiFillBulb, AiFillAudio } from "react-icons/ai";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiCrown } from "react-icons/bi";
@@ -13,7 +13,6 @@ export default function Home() {
   return (
     <div>
       <HomeNavbar />
-      
       <section id="landing">
         <div className="container">
           <div className="row">
@@ -30,7 +29,12 @@ export default function Home() {
                   <br className="remove--tablet" />
                   and even people who don’t like to read.
                 </div>
-                <button onClick={() => dispatch(openModal())} className="btn home__cta--btn">Login</button>
+                <button
+                  onClick={() => dispatch(openModal())}
+                  className="btn home__cta--btn"
+                >
+                  Login
+                </button>
               </div>
               <figure className="landing__image--mask">
                 <img src="/landingimg.png" alt="landing" />

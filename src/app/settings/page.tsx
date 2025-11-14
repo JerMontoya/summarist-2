@@ -13,8 +13,6 @@ export default function SettingsPage() {
   const dispatch = useDispatch();
   const { uid, subscription } = useSelector((state: RootState) => state.auth);
 
-  // const isLoading = uid === undefined;
-
   if (uid === undefined) {
     return (
       <div className="row">
