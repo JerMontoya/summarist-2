@@ -18,13 +18,71 @@ export default function Wheel({ books }: WheelProps) {
     const container = wheelRef.current;
     if (!container) return;
 
+    let rafId: number | null = null;
+    let acc = 0;
+    let ticking = false;
+
+    const normalizeDelta = (raw: number, mode: number) => {
+      if (mode === 1) return raw * 16;
+      if (mode === 2) return raw * container.clientHeight;
+      return raw;
+    };
+
+    const applyScroll = () => {
+      rafId = null;
+      ticking = false;
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const next = Math.max(
+        0,
+        Math.min(maxScrollLeft, container.scrollLeft + acc)
+      );
+      container.scrollLeft = next;
+      acc = 0;
+    };
+
     const onWheel = (e: WheelEvent) => {
+      if (e.ctrlKey) return;
+
+      const absX = Math.abs(e.deltaX);
+      const absY = Math.abs(e.deltaY);
+      let delta = absX > absY ? e.deltaX : e.deltaY;
+
+      delta = normalizeDelta(delta, e.deltaMode);
+
+      const JITTER_THRESHOLD = 0.05;
+      if (Math.abs(delta) < JITTER_THRESHOLD) return;
+
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const atStart = container.scrollLeft <= 0;
+      const atEnd = container.scrollLeft >= maxScrollLeft - 1;
+
+      const wantsLeft = delta < 0;
+      const wantsRight = delta > 0;
+
+      if ((atStart && wantsLeft) || (atEnd && wantsRight)) {
+        return;
+      }
+
       e.preventDefault();
-      container.scrollLeft += e.deltaY * 1.5;
+
+      const MULTIPLIER = 4.0;
+      let step = delta * MULTIPLIER;
+      const MIN_STEP = 2;
+      if (Math.abs(step) < MIN_STEP) step = Math.sign(step) * MIN_STEP;
+
+      acc += step;
+
+      if (!ticking) {
+        ticking = true;
+        rafId = requestAnimationFrame(applyScroll);
+      }
     };
 
     container.addEventListener("wheel", onWheel, { passive: false });
-    return () => container.removeEventListener("wheel", onWheel);
+    return () => {
+      container.removeEventListener("wheel", onWheel);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
